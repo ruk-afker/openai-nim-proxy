@@ -21,7 +21,7 @@ const SHOW_REASONING = false; // Set to true to show reasoning with <think> tags
 const ENABLE_THINKING_MODE = false; // Set to true to enable chat_template_kwargs thinking parameter
 
 // Model mapping (adjust based on available NIM models)
-const MODEL_MAPPING = {deepseek-ai/deepseek-v3.1}
+const MODEL_MAPPING = {gpt-4o}
   'gpt-3.5-turbo': 'nvidia/llama-3.1-nemotron-ultra-253b-v1',
   'gpt-4': 'qwen/qwen3-coder-480b-a35b-instruct',
   'gpt-4-turbo': 'moonshotai/kimi-k2-instruct-0905',
@@ -237,9 +237,14 @@ app.all('*', (req, res) => {
   });
 });
 
+(process.env.NODE_ENV !== 'production') {
+
 app.listen(PORT, () => {
-  console.log(`OpenAI to NVIDIA NIM Proxy running on port ${PORT}`);
-  console.log(`Health check: http://localhost:${PORT}/health`);
-  console.log(`Reasoning display: ${SHOW_REASONING ? 'ENABLED' : 'DISABLED'}`);
-  console.log(`Thinking mode: ${ENABLE_THINKING_MODE ? 'ENABLED' : 'DISABLED'}`);
+
+console.log(`Proxy running on port ${PORT}`);
+
 });
+
+}
+
+module.exports = app;
