@@ -241,17 +241,6 @@ app.post('/v1/chat/completions', async (req, res) => {
   });
 }
 
-// Catch-all for unsupported endpoints
-app.all('*', (req, res) => {
-  res.status(404).json({
-    error: {
-      message: `Endpoint ${req.path} not found`,
-      type: 'invalid_request_error',
-      code: 404
-    }
-  });
-});
-
 app.listen(PORT, () => {
   console.log(`OpenAI to NVIDIA NIM Proxy running on port ${PORT}`);
   console.log(`Health check: http://localhost:${PORT}/health`);
