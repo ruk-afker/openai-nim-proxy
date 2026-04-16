@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 3000;
 // Middleware
 app.use(cors());
 app.use(express.json({ limit: '100mb' }));
-app.use(express.urlencoded({ limit: '100mb', extended: true }));;
+app.use(express.urlencoded({ limit: '100mb', extended: true }));
 
 // NVIDIA NIM API configuration
 const NIM_API_BASE = process.env.NIM_API_BASE || 'https://integrate.api.nvidia.com/v1';
@@ -215,31 +215,28 @@ app.post('/v1/chat/completions', async (req, res) => {
     }
     
   } catch (error) {
-  console.error('Proxy error:', error.message);
-  
-  if (error.response) {
-    console.error('Status:', error.response.status);
+    console.error('Proxy error:', error.message);
     
-    if (error.response.data && typeof error.response.data.pipe === 'function') {
-      // Handle streamed error response
-      let errorData = '';
-      error.response.data.on('data', chunk => errorData += chunk.toString());
-      error.response.data.on('end', () => {
-        console.error('NVIDIA error:', errorData);
-      });
-    } else {
-      console.error('NVIDIA error:', JSON.stringify(error.response.data));
-    }
+    res.status(error.response?.status || 500).json({
+      error: {
+        message: error.message || 'Internal server error',
+        type: 'invalid_request_error',
+        code: error.response?.status || 500
+      }
+    });
   }
+});
 
-  res.status(error.response?.status || 500).json({
+// Catch-all for unsupported endpoints
+app.all('*', (req, res) => {
+  res.status(404).json({
     error: {
-      message: error.message || 'Internal server error',
+      message: `Endpoint ${req.path} not found`,
       type: 'invalid_request_error',
-      code: error.response?.status || 500
+      code: 404
     }
   });
-}
+});
 
 app.listen(PORT, () => {
   console.log(`OpenAI to NVIDIA NIM Proxy running on port ${PORT}`);
