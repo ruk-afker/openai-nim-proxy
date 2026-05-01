@@ -28,7 +28,7 @@ const MODEL_MAPPING = {
   'gpt-4-turbo': 'moonshotai/kimi-k2-instruct-0905',
   'gpt-4o': 'google/gemma-4-31b-it',
   'claude-3-opus': 'deepseek-ai/deepseek-v3.2',
-  'claude-3-sonnet': 'z-ai/glm-4.7',
+  'claude-3-sonnet': 'z-ai/glm-5.1',
   'gemini-pro': 'mistralai/mistral-large-3-675b-instruct-2512' 
 };
 
@@ -243,4 +243,17 @@ app.listen(PORT, () => {
   console.log(`Health check: http://localhost:${PORT}/health`);
   console.log(`Reasoning display: ${SHOW_REASONING ? 'ENABLED' : 'DISABLED'}`);
   console.log(`Thinking mode: ${ENABLE_THINKING_MODE ? 'ENABLED' : 'DISABLED'}`);
+});
+
+// Add this endpoint to your proxy
+app.get('/v1/models', async (req, res) => {
+  try {
+    // Ask NVIDIA directly what's available right now
+    const response = await axios.get(`${NIM_API_BASE}/models`, {
+      headers: { 'Authorization': `Bearer ${NIM_API_KEY}` }
+    });
+    res.json(response.data);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch models' });
+  }
 });
