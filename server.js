@@ -147,6 +147,26 @@ app.post('/v1/chat/completions', async (req, res) => {
       }
     }
 
+    // In your chat completions handler, add this before building nimRequest
+if (nimModel.includes('glm')) {
+  const hasSystem = messages.some(m => m.role === 'system');
+  
+  if (hasSystem) {
+    // Append to existing system prompt
+    messages = messages.map(m => 
+      m.role === 'system' 
+        ? { ...m, content: m.content + '\n\nALWAYS format your responses with proper paragraph breaks and spacing. Never write in walls of text. Each new idea or beat gets its own paragraph.' }
+        : m
+    );
+  } else {
+    // Inject a new system message
+    messages = [
+      { role: 'system', content: 'ALWAYS format your responses with proper paragraph breaks and spacing. Never write in walls of text. Each new idea or beat gets its own paragraph.' },
+      ...messages
+    ];
+  }
+}
+    
     // Build NIM request
     const nimRequest = {
       model: nimModel,
@@ -262,23 +282,3 @@ app.listen(PORT, () => {
   console.log(`Proxy running on port ${PORT}`);
   console.log(`Health: http://localhost:${PORT}/health`);
 });
-
-// In your chat completions handler, add this before building nimRequest
-if (nimModel.includes('glm')) {
-  const hasSystem = messages.some(m => m.role === 'system');
-  
-  if (hasSystem) {
-    // Append to existing system prompt
-    messages = messages.map(m => 
-      m.role === 'system' 
-        ? { ...m, content: m.content + '\n\nALWAYS format your responses with proper paragraph breaks and spacing. Never write in walls of text. Each new idea or beat gets its own paragraph.' }
-        : m
-    );
-  } else {
-    // Inject a new system message
-    messages = [
-      { role: 'system', content: 'ALWAYS format your responses with proper paragraph breaks and spacing. Never write in walls of text. Each new idea or beat gets its own paragraph.' },
-      ...messages
-    ];
-  }
-}
