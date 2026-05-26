@@ -174,10 +174,12 @@ if (nimModel.includes('glm')) {
       temperature: temperature || 0.6,
       max_tokens: max_tokens || 9024,
       stream: stream || false,
-      // Required for DeepSeek V4 models or they hang
       ...(nimModel.includes('deepseek-v4') && {
-        chat_template_kwargs: { enable_thinking: true, thinking: true }
-      }),
+  chat_template_kwargs: { 
+    enable_thinking: true,
+    thinking: false  // 👈 Change this to false for speed
+  }
+}),
       // Optional thinking mode for other models
       ...(ENABLE_THINKING_MODE && !nimModel.includes('deepseek-v4') && {
         extra_body: { chat_template_kwargs: { thinking: true } }
