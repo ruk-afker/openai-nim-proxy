@@ -195,6 +195,8 @@ if (nimModel.includes('glm')) {
       res.setHeader('Content-Type', 'text/event-stream');
       res.setHeader('Cache-Control', 'no-cache');
       res.setHeader('Connection', 'keep-alive');
+      openaiResponse.choices[0].message.content = 
+  `[Model: ${nimModel}]\n\n` + openaiResponse.choices[0].message.content;
 
       let buffer = '';
       let reasoningStarted = false;
