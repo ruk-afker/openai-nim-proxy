@@ -21,6 +21,9 @@ const SHOW_REASONING = false;
 // 🔥 THINKING MODE TOGGLE
 const ENABLE_THINKING_MODE = false;
 
+// 🔍 Set to true to see which model is actually responding
+const SHOW_MODEL_TAG = true;
+
 // Model mapping
 const MODEL_MAPPING = {
   'gpt-3.5-turbo': process.env.MODEL_SMALL  || 'z-ai/glm-5.1',
