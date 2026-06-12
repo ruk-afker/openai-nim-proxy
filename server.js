@@ -31,7 +31,7 @@ const MODEL_MAPPING = {
   'gpt-4-turbo':   process.env.MODEL_LARGE  || 'deepseek-ai/deepseek-v4-pro',
   'gpt-4o':        process.env.MODEL_BEST   || 'nvidia/nemotron-3-ultra-550b-a55b',
   'claude-3-opus': process.env.MODEL_ALT    || 'deepseek-ai/deepseek-v4-flash',
-  'o1':            process.env.MODEL_REASON || 'nvidia/nemotron-3-super-120b',
+  'o1':            process.env.MODEL_REASON || 'minimaxai/minimax-m3',
 };
 
 // Keep-alive ping to prevent Render free tier sleep
