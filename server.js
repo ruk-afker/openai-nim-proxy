@@ -248,13 +248,13 @@ if (nimModel.includes('glm')) {
           let content = choice.message?.content || '';
           if (SHOW_REASONING && choice.message?.reasoning_content) {
             content = '<think>\n' + choice.message.reasoning_content + '\n</think>\n\n' + content;
-          };
-          openaiResponse.choices[0].message.content = 
-  `[Model: ${nimModel}]\n\n` + openaiResponse.choices[0].message.content;
-
-res.json(openaiResponse);
           
           }
+
+          if (idx === 0 && SHOW_MODEL_TAG) {
+            content = `[Model: ${usedModel}]\n\n` + content;
+          }
+          
           return {
             index: choice.index,
             message: { role: choice.message.role, content },
