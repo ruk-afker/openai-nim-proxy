@@ -195,9 +195,7 @@ if (nimModel.includes('glm')) {
       res.setHeader('Content-Type', 'text/event-stream');
       res.setHeader('Cache-Control', 'no-cache');
       res.setHeader('Connection', 'keep-alive');
-      openaiResponse.choices[0].message.content = 
-  `[Model: ${nimModel}]\n\n` + openaiResponse.choices[0].message.content;
-
+      
       let buffer = '';
       let reasoningStarted = false;
 
@@ -250,6 +248,12 @@ if (nimModel.includes('glm')) {
           let content = choice.message?.content || '';
           if (SHOW_REASONING && choice.message?.reasoning_content) {
             content = '<think>\n' + choice.message.reasoning_content + '\n</think>\n\n' + content;
+          };
+          openaiResponse.choices[0].message.content = 
+  `[Model: ${nimModel}]\n\n` + openaiResponse.choices[0].message.content;
+
+res.json(openaiResponse);
+          
           }
           return {
             index: choice.index,
