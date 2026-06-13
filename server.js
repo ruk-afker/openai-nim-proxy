@@ -145,11 +145,13 @@ app.post('/v1/chat/completions', async (req, res) => {
         } else if (ml.includes('claude') || ml.includes('gemini') || ml.includes('70b')) {
           nimModel = 'nvidia/llama-3.3-nemotron-super-49b-v1';
         } else {
-          nimModel = 'meta/llama-3.1-8b-instruct';
+          nimModel = 'meta/llama-3.3-70b-instruct';
         }
       }
     }
 
+    console.log('Final model selected:', nimModel);
+    
     // In your chat completions handler, add this before building nimRequest
 if (nimModel.includes('glm')) {
   const hasSystem = messages.some(m => m.role === 'system');
