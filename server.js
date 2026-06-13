@@ -255,9 +255,9 @@ if (nimModel.includes('glm')) {
             content = '<think>\n' + choice.message.reasoning_content + '\n</think>\n\n' + content;
           }
 
-          if (idx === 0 && SHOW_MODEL_TAG) {
-            content = `[Model: ${usedModel}]\n\n` + content;
-          }
+          if (choice.index === 0 && SHOW_MODEL_TAG) {
+  content = `[Model: ${nimModel}]\n\n` + content;
+}
           
           return {
             index: choice.index,
