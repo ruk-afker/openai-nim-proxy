@@ -21,7 +21,7 @@ const SHOW_REASONING = false;
 // 🔥 THINKING MODE TOGGLE
 const ENABLE_THINKING_MODE = false;
 
-// 🔍 Set to true to see which model is actually responding
+// 🔍 Set to true to see which model is actually respondin
 const SHOW_MODEL_TAG = true;
 
 // Model mapping
