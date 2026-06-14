@@ -28,7 +28,7 @@ const SHOW_MODEL_TAG = true;
 const MODEL_MAPPING = {
   'gpt-3.5-turbo': process.env.MODEL_SMALL  || 'qwen/qwen3.5-397b-a17b',
   'gpt-4':         process.env.MODEL_MID    || 'moonshotai/kimi-k2.6',
-  'gpt-4-turbo':   process.env.MODEL_LARGE  || 'meta/llama-3.3-70b-instruct',
+  'gpt-4-turbo':   process.env.MODEL_LARGE  || 'mistralai/mistral-small-4-119b-2603',
   'gpt-4o':        process.env.MODEL_BEST   || 'nvidia/nemotron-3-ultra-550b-a55b',
   'claude-3-opus': process.env.MODEL_ALT    || 'deepseek-ai/deepseek-v4-flash',
   'o1':            process.env.MODEL_REASON || 'z-ai/glm-5.1',
