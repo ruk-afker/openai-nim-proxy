@@ -274,8 +274,9 @@ if (nimModel.includes('glm')) {
   } catch (error) {
   const errData = error.response?.data;
   console.error('Proxy error:', error.message);
-  console.error('Full NVIDIA error:', JSON.stringify(errData, null, 2));
-  console.error('Request that failed:', JSON.stringify(nimRequest, null, 2));
+  console.error('Full NVIDIA error:', errData?.message || errData?.detail || errData?.error || JSON.stringify(errData?.toString()));
+console.error('Request model:', nimRequest?.model);
+console.error('Request messages count:', nimRequest?.messages?.length);
 
   res.status(error.response?.status || 500).json({
     error: {
