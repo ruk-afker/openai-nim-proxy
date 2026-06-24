@@ -273,17 +273,21 @@ if (nimModel.includes('glm')) {
 
   } catch (error) {
   const errData = error.response?.data;
+  const errStatus = error.response?.status;
+  const errHeaders = error.response?.headers;
+  
   console.error('Proxy error:', error.message);
-  console.error('Full NVIDIA error:', errData?.message || errData?.detail || errData?.error || JSON.stringify(errData?.toString()));
-console.error('Request model:', nimRequest?.model);
-console.error('Request messages count:', nimRequest?.messages?.length);
+  console.error('Status code:', errStatus);
+  console.error('Error type:', errData?.type);
+  console.error('Error detail:', errData?.detail);
+  console.error('Error message:', errData?.message);
+  console.error('Error object keys:', errData ? Object.keys(errData) : 'none');
 
-  res.status(error.response?.status || 500).json({
+  res.status(errStatus || 500).json({
     error: {
-      message: errData?.detail || errData?.message || error.message || 'Internal server error',
-      nvidia_error: errData,
-      type: 'invalid_request_error',
-      code: error.response?.status || 500
+      message: errData?.detail || errData?.message || error.message,
+      type: errData?.type || 'invalid_request_error',
+      code: errStatus || 500
     }
   });
 }
