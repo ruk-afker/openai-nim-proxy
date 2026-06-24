@@ -272,15 +272,20 @@ if (nimModel.includes('glm')) {
     }
 
   } catch (error) {
-    console.error('Proxy error:', error.message);
-    res.status(error.response?.status || 500).json({
-      error: {
-        message: error.message || 'Internal server error',
-        type: 'invalid_request_error',
-        code: error.response?.status || 500
-      }
-    });
-  }
+  const errData = error.response?.data;
+  console.error('Proxy error:', error.message);
+  console.error('Full NVIDIA error:', JSON.stringify(errData, null, 2));
+  console.error('Request that failed:', JSON.stringify(nimRequest, null, 2));
+
+  res.status(error.response?.status || 500).json({
+    error: {
+      message: errData?.detail || errData?.message || error.message || 'Internal server error',
+      nvidia_error: errData,
+      type: 'invalid_request_error',
+      code: error.response?.status || 500
+    }
+  });
+}
 });
 
 // 404 catch-all
