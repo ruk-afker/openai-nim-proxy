@@ -242,7 +242,19 @@ if (nimModel.includes('glm')) {
       response.data.on('error', err => { console.error('Stream error:', err); res.end(); });
 
     } else {
-      const response = await nimRequestWithRetry(nimRequest);
+      const response = await axios.post(`${NIM_API_BASE}/chat/completions`, nimRequest, {
+  headers: {
+    'Authorization': `Bearer ${NIM_API_KEY}`,
+    'Content-Type': 'application/json'
+  },
+  responseType: 'json',
+  validateStatus: () => true
+});
+
+if (response.status >= 400) {
+  console.error('NVIDIA rejected request:', JSON.stringify(response.data));
+  return res.status(response.status).json({ error: response.data });
+}
 
       const openaiResponse = {
         id: `chatcmpl-${Date.now()}`,
