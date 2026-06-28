@@ -193,9 +193,21 @@ if (nimModel.includes('glm')) {
 
     if (stream) {
       const response = await axios.post(`${NIM_API_BASE}/chat/completions`, nimRequest, {
-        headers: { 'Authorization': `Bearer ${NIM_API_KEY}`, 'Content-Type': 'application/json' },
-        responseType: 'stream'
-      });
+  headers: { 'Authorization': `Bearer ${NIM_API_KEY}`, 'Content-Type': 'application/json' },
+  responseType: 'stream',
+  validateStatus: () => true
+});
+
+// Check if NVIDIA rejected it before treating as stream
+if (response.status >= 400) {
+  const chunks = [];
+  for await (const chunk of response.data) {
+    chunks.push(chunk);
+  }
+  const errorBody = JSON.parse(Buffer.concat(chunks).toString());
+  console.error('NVIDIA stream error:', JSON.stringify(errorBody));
+  return res.status(response.status).json({ error: errorBody });
+}
 
       res.setHeader('Content-Type', 'text/event-stream');
       res.setHeader('Cache-Control', 'no-cache');
