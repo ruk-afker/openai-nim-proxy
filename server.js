@@ -328,3 +328,8 @@ app.listen(PORT, () => {
   console.log(`Proxy running on port ${PORT}`);
   console.log(`Health: http://localhost:${PORT}/health`);
 });
+
+let requestCount = 0;
+// inside the route:
+requestCount++;
+console.log(`Request #${requestCount} | Model: ${nimModel}`);
