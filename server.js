@@ -125,18 +125,6 @@ app.post('/v1/chat/completions', async (req, res) => {
 
     // Smart model selection with fallback
     let nimModel = MODEL_MAPPING[model];
-    if (!nimModel) {
-      try {
-        const testRes = await axios.post(`${NIM_API_BASE}/chat/completions`, {
-          model: model,
-          messages: [{ role: 'user', content: 'test' }],
-          max_tokens: 1
-        }, {
-          headers: { 'Authorization': `Bearer ${NIM_API_KEY}`, 'Content-Type': 'application/json' },
-          validateStatus: s => s < 500
-        });
-        if (testRes.status >= 200 && testRes.status < 300) nimModel = model;
-      } catch (e) {}
 
       if (!nimModel) {
         const ml = model.toLowerCase();
