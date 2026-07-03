@@ -136,7 +136,6 @@ app.post('/v1/chat/completions', async (req, res) => {
           nimModel = 'meta/llama-3.3-70b-instruct';
         }
       }
-    }
 
     console.log('Final model selected:', nimModel);
     
