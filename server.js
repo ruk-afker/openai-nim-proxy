@@ -142,6 +142,14 @@ app.post('/v1/chat/completions', async (req, res) => {
     // In your chat completions handler, add this before building nimRequest
 if (nimModel.includes('glm')) {
   const hasSystem = messages.some(m => m.role === 'system');
+
+  if (nimModel.includes('nemotron-3-ultra')) {
+  const hasSystem = messages.some(m => m.role === 'system');
+  const instruction = '\n\nDo not use markdown formatting such as asterisks or underscores for bold/italic emphasis. Write in plain prose only.';
+  messages = hasSystem
+    ? messages.map(m => m.role === 'system' ? { ...m, content: m.content + instruction } : m)
+    : [{ role: 'system', content: instruction.trim() }, ...messages];
+  }
   
   if (hasSystem) {
     // Append to existing system prompt
