@@ -173,6 +173,7 @@ if (nimModel.includes('glm')) {
       messages: messages,
       temperature: temperature || 0.6,
       max_tokens: max_tokens || 9024,
+      top_p: top_p || 0.95,
       stream: stream || false,
       ...(nimModel.includes('deepseek-v4') && {
   chat_template_kwargs: { 
