@@ -150,6 +150,14 @@ if (nimModel.includes('glm')) {
     ? messages.map(m => m.role === 'system' ? { ...m, content: m.content + instruction } : m)
     : [{ role: 'system', content: instruction.trim() }, ...messages];
   }
+
+if (nimModel.includes('deepseek-v4')) {
+  const hasSystem = messages.some(m => m.role === 'system');
+  const instruction = '\n\nWhen reasoning internally before responding, think analytically and objectively in third person, as a narrator or analyst — not as the character. Only the final response should be written in the character\'s voice or first person. Your reasoning process is not part of the roleplay.';
+  messages = hasSystem
+    ? messages.map(m => m.role === 'system' ? { ...m, content: m.content + instruction } : m)
+    : [{ role: 'system', content: instruction.trim() }, ...messages];
+}
   
   if (hasSystem) {
     // Append to existing system prompt
