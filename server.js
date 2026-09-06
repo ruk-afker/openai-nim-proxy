@@ -16,7 +16,7 @@ const NIM_API_BASE = process.env.NIM_API_BASE || 'https://integrate.api.nvidia.c
 const NIM_API_KEY = process.env.NIM_API_KEY;
 
 // 🔥 REASONING DISPLAY TOGGLE
-const SHOW_REASONING = true;
+const SHOW_REASONING = false;
 
 // 🔥 THINKING MODE TOGGLE
 const ENABLE_THINKING_MODE = false;
@@ -186,7 +186,7 @@ if (nimModel.includes('deepseek-v4')) {
       ...(nimModel.includes('deepseek-v4') && {
   chat_template_kwargs: { 
     enable_thinking: true,
-    thinking: true  // 👈 Change this to false for speed
+    thinking: false  // 👈 Change this to false for speed
   }
 }),
       // Optional thinking mode for other models
