@@ -187,7 +187,7 @@ if (nimModel.includes('deepseek-v4')) {
   chat_template_kwargs: { 
     enable_thinking: true,
     thinking: true,  // 👈 Change this to false for speed
-    reasoning_effort: 'high' // or 'max' for deepest reasoning
+    reasoning_effort: 'max' // or 'max' for deepest reasoning
   }
 }),
       // Optional thinking mode for other models
