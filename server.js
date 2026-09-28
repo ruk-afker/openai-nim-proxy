@@ -26,7 +26,7 @@ const SHOW_MODEL_TAG = true;
 
 // Model mapping
 const MODEL_MAPPING = {
-  'gpt-3.5-turbo': process.env.MODEL_SMALL  || 'moonshotai/kimi-k2.6',
+  'gpt-3.5-turbo': process.env.MODEL_SMALL  || 'mistralai/mistral-large-2-instruct',
   'gpt-4':         process.env.MODEL_MID    || 'deepseek-ai/deepseek-v4.1-flash',
   'gpt-4-turbo':   process.env.MODEL_LARGE  || 'z-ai/glm-5.3-flash',
   'gpt-4o':        process.env.MODEL_BEST   || 'nvidia/nemotron-3-ultra-550b-a55b',
