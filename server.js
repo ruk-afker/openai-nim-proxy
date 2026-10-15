@@ -190,6 +190,14 @@ if (nimModel.includes('deepseek-v4')) {
     reasoning_effort: 'max' // or 'max' for deepest reasoning
   }
 }),
+      
+      ...(nimModel.includes('nemotron-3-ultra') && {
+  chat_template_kwargs: {
+    enable_thinking: true,
+    medium_effort: true
+  }
+}),
+      
       // Optional thinking mode for other models
       ...(ENABLE_THINKING_MODE && !nimModel.includes('deepseek-v4') && {
         extra_body: { chat_template_kwargs: { thinking: true } }
