@@ -201,7 +201,8 @@ if (nimModel.includes('deepseek-v4')) {
       // Optional thinking mode for other models
       ...(ENABLE_THINKING_MODE && !nimModel.includes('deepseek-v4') && !nimModel.includes('nemotron-3-ultra') && {
   chat_template_kwargs: { thinking: true }
-}),
+ })  
+};
 
     if (stream) {
       const response = await axios.post(`${NIM_API_BASE}/chat/completions`, nimRequest, {
