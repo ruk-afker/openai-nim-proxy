@@ -197,6 +197,13 @@ if (nimModel.includes('deepseek-v4')) {
     medium_effort: true
   }
 }),
+
+    ...(nimModel.includes('minimax-m3') && {
+      chat_template_kwargs: {
+        thinking_mode: 'enabled',
+        reasoning_effort: 'xhigh' // low, medium, high, xhigh, max
+      }
+    }),
       
       // Optional thinking mode for other models
       ...(ENABLE_THINKING_MODE && !nimModel.includes('deepseek-v4') && !nimModel.includes('nemotron-3-ultra') && {
