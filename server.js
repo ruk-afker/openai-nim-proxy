@@ -201,7 +201,7 @@ if (nimModel.includes('deepseek-v4')) {
     ...(nimModel.includes('minimax-m3') && {
       chat_template_kwargs: {
         thinking_mode: 'enabled',
-        reasoning_effort: 'medium' // low, medium, high, xhigh, max
+        reasoning_effort: 'max' // low, medium, high, xhigh, max
       }
     }),
       
