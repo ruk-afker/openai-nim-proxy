@@ -204,6 +204,10 @@ if (nimModel.includes('deepseek-v4')) {
         reasoning_effort: 'max' // low, medium, high, xhigh, max
       }
     }),
+
+      ...(nimModel.includes('mistral-large-4') && {
+  chat_template_kwargs: { reasoning_effort: 'high' }
+}),
       
       // Optional thinking mode for other models
       ...(ENABLE_THINKING_MODE && !nimModel.includes('deepseek-v4') && !nimModel.includes('nemotron-3-ultra') && {
