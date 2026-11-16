@@ -216,7 +216,7 @@ if (nimModel.includes('deepseek-v4')) {
 }),
       
       // Optional thinking mode for other models
-      ...(ENABLE_THINKING_MODE && !nimModel.includes('deepseek-v4') && !nimModel.includes('nemotron-3-ultra') && !nimModel.includes('nemotron-3-super')
+      ...(ENABLE_THINKING_MODE && !nimModel.includes('deepseek-v4') && !nimModel.includes('nemotron-3-ultra') && !nimModel.includes('nemotron-3-super') && {
   chat_template_kwargs: { thinking: true }
  })  
 };
