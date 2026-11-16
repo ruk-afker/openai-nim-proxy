@@ -150,7 +150,7 @@ if (nimModel.includes('glm')) {
     ? messages.map(m => m.role === 'system' ? { ...m, content: m.content + instruction } : m)
     : [{ role: 'system', content: instruction.trim() }, ...messages];
   }
-
+    
 if (nimModel.includes('deepseek-v4')) {
   const hasSystem = messages.some(m => m.role === 'system');
   const instruction = '\n\nWhen reasoning internally before responding, think analytically and objectively in third person, as a narrator or analyst — not as the character. Only the final response should be written in the character\'s voice or first person. Your reasoning process is not part of the roleplay.';
@@ -198,6 +198,12 @@ if (nimModel.includes('deepseek-v4')) {
   }
 }),
 
+      // Full thinking with a token cap
+...(nimModel.includes('nemotron-3-super') && {
+  chat_template_kwargs: { enable_thinking: true },
+  reasoning_budget: 4096
+}),
+      
     ...(nimModel.includes('minimax-m3') && {
       chat_template_kwargs: {
         thinking_mode: 'enabled',
@@ -210,7 +216,7 @@ if (nimModel.includes('deepseek-v4')) {
 }),
       
       // Optional thinking mode for other models
-      ...(ENABLE_THINKING_MODE && !nimModel.includes('deepseek-v4') && !nimModel.includes('nemotron-3-ultra') && {
+      ...(ENABLE_THINKING_MODE && !nimModel.includes('deepseek-v4') && !nimModel.includes('nemotron-3-ultra') && !nimModel.includes('nemotron-3-super') {
   chat_template_kwargs: { thinking: true }
  })  
 };
