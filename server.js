@@ -29,7 +29,7 @@ const MODEL_MAPPING = {
   'gpt-3.5-turbo': process.env.MODEL_SMALL  || 'minimaxai/minimax-m3.1-flash',
   'gpt-4':         process.env.MODEL_MID    || 'deepseek-ai/deepseek-v4.1-flash',
   'gpt-4-turbo':   process.env.MODEL_LARGE  || 'z-ai/glm-5.3-flash',
-  'gpt-4o':        process.env.MODEL_BEST   || 'nvidia/nemotron-3-ultra-550b-a55b',
+  'gpt-4o':        process.env.MODEL_BEST   || 'nvidia/nemotron-3.5-super-vl-120b-a12b',
   'claude-3-opus': process.env.MODEL_ALT    || 'stepfun-ai/step-5-preview',
   'o1':            process.env.MODEL_REASON || 'moonshotai/kimi-k3.1-pro',
 };
